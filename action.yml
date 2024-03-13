@@ -1,0 +1,35 @@
+name: 'Discord Notify'
+description: 'Notify a Discord channel with a message'
+author: 'Abbon Corporation'
+
+# Add your action's branding here. This will appear on the GitHub Marketplace.
+branding:
+  icon: 'heart'
+  color: 'red'
+
+# Define your inputs here.
+inputs:
+  title:
+    description: 'Title of the task'
+    required: true
+  description:
+    description: 'Description of the task'
+    required: false
+  message_id:
+    description: 'ID of the message to update'
+    required: false
+  webhook_id:
+    description: 'ID of the webhook to use'
+    required: true
+  webhook_token:
+    description: 'Token of the webhook to use'
+    required: true
+
+# Define your outputs here.
+outputs:
+  message_id:
+    description: 'ID of the message'
+
+runs:
+  using: node20
+  main: dist/index.js
