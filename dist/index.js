@@ -24714,6 +24714,9 @@ const client = new http_client_1.HttpClient('action');
 const sendDiscordWebhook = async (payload, messageId) => {
     const webhookId = (0, core_1.getInput)('webhook_id');
     const webhookToken = (0, core_1.getInput)('webhook_token');
+    if (!webhookId || !webhookToken) {
+        throw new Error('Discord webhook ID and token are required');
+    }
     let baseURL = `https://discord.com/api/webhooks/${webhookId}/${webhookToken}`;
     if (messageId) {
         baseURL += `/messages/${messageId}`;
@@ -24749,18 +24752,25 @@ async function run() {
         const title = (0, core_1.getInput)('title') || '';
         const description = (0, core_1.getInput)('description');
         const messageId = (0, core_1.getInput)('message_id');
+        const url = (0, core_1.getInput)('url');
+        const color = (0, core_1.getInput)('color') || '#ffffff';
+        if (!title) {
+            throw new Error('Title is required');
+        }
+        const colorNumber = parseInt(color.replace('#', '').toLowerCase(), 16);
         const payload = {
             embeds: [
                 {
                     type: 'rich',
                     title,
                     ...(description ? { description } : {}),
-                    color: 16777215,
+                    color: colorNumber,
                     timestamp: new Date().toISOString(),
                     footer: {
                         text: 'Abbon Corporation',
                         icon_url: 'https://avatars.githubusercontent.com/u/127878265?s=200&v=4',
                     },
+                    ...(url ? { url } : {}),
                 },
             ],
         };
