@@ -15,6 +15,12 @@ inputs:
   description:
     description: 'Description of the task'
     required: false
+  url:
+    description: 'URL to link to'
+    required: false
+  color:
+    description: 'Color of the message'
+    required: false
   message_id:
     description: 'ID of the message to update'
     required: false

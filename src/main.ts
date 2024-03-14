@@ -6,6 +6,14 @@ export async function run(): Promise<void> {
     const title: string = getInput('title') || ''
     const description: string = getInput('description')
     const messageId: string = getInput('message_id')
+    const url: string = getInput('url')
+    const color: string = getInput('color') || '#ffffff'
+
+    if (!title) {
+      throw new Error('Title is required')
+    }
+
+    const colorNumber = parseInt(color.replace('#', '').toLowerCase(), 16)
 
     const payload = {
       embeds: [
@@ -13,13 +21,14 @@ export async function run(): Promise<void> {
           type: 'rich',
           title,
           ...(description ? { description } : {}),
-          color: 16777215,
+          color: colorNumber,
           timestamp: new Date().toISOString(),
           footer: {
             text: 'Abbon Corporation',
             icon_url:
               'https://avatars.githubusercontent.com/u/127878265?s=200&v=4',
           },
+          ...(url ? { url } : {}),
         },
       ],
     }

@@ -7,6 +7,10 @@ export const sendDiscordWebhook = async (payload: any, messageId?: string) => {
   const webhookId = getInput('webhook_id')
   const webhookToken = getInput('webhook_token')
 
+  if (!webhookId || !webhookToken) {
+    throw new Error('Discord webhook ID and token are required')
+  }
+
   let baseURL = `https://discord.com/api/webhooks/${webhookId}/${webhookToken}`
   if (messageId) {
     baseURL += `/messages/${messageId}`
